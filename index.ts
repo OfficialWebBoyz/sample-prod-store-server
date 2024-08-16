@@ -1,15 +1,22 @@
 
-import express, { Request, Response , Application } from 'express';
+import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 // For env File 
 dotenv.config();
 
-const app: Application = express();
+const app = express();
 const port = process.env.PORT || 8000;
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Welcome to Express & TypeScript Server');
+app.use(cors({
+  // todo, figure out how to get local https
+  // or dynamically create subdomains using tunnels
+  origin: ['http://localhost:5173'],
+}))
+
+app.get('/api', (req: Request, res: Response) => {
+  res.send({myles: '🗿'});
 });
 
 app.listen(port, () => {
